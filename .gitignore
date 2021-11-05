@@ -2,3 +2,4 @@
 *.log
 #/logs/*
 scripts
+__pycache__
