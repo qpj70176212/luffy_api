@@ -1,5 +1,10 @@
 .idea
 *.log
-#/logs/*
+*.logs
+/logs/*
 scripts
 __pycache__
+
+#luffyapi/apps/*/migrations
+*/*/*/migrations/*.py
+!*/*/*/migrations/__init__.py
