@@ -17,3 +17,5 @@ except Exception as e:
 
     # sentry: 开源的使用django开发的无关平台的日志记录及分析的项目
 print("hello world")
+
+print('本地dev开发新功能')
