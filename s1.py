@@ -19,3 +19,6 @@ except Exception as e:
 print("hello world")
 
 print('本地dev开发新功能')
+
+# 测试本地分支合并到远程
+print('本地dev开发新功能2')
