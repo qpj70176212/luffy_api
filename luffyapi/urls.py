@@ -13,22 +13,31 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# from luffyapi.apps import user
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from django.views.static import serve
 from django.conf import settings
-from luffyapi.apps.user import views
-from luffyapi.apps.home import views as home_view
+# import user
+
+# from luffyapi.apps.user import views, urls
+# from luffyapi.apps import user
+# from .apps import user
+# from luffyapi.apps.home import views as home_view
 
 # 自动生成路由
-from rest_framework.routers import SimpleRouter
-router = SimpleRouter()
-router.register('banner', home_view.BannerView, basename='banner')
+# from rest_framework.routers import SimpleRouter
+# router = SimpleRouter()
+# router.register('banner', home_view.BannerView, basename='banner')
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('user/', include('user.urls')),
+    path('home/', include('home.urls')),
+    path('course/', include('course.urls')),
     # path('', views.index),
     # path('', home_view.test_logger),
     # path('test/', home_view.TestView.as_view()),
     re_path('^media/(?P<path>.*)', serve, {'document_root': settings.MEDIA_ROOT})
 ]
-urlpatterns += router.urls
+# urlpatterns += router.urls
+

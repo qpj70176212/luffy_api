@@ -5,6 +5,7 @@
 # @Software: PyCharm
 import logging
 
-def get_logger(name):
-    my_logger = logging.getLogger(name)
+# def get_logger(name):
+def get_logger():
+    my_logger = logging.getLogger('django')
     return my_logger

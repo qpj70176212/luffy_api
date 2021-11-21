@@ -10,8 +10,8 @@ class BannerSerializer(serializers.ModelSerializer):
         model = Banner
         fields = ['id', 'link', 'image']
 
-    image = serializers.SerializerMethodField()
-    def get_image(self, obj):
-        print( obj.image)
-
-        return  'http://127.0.0.1:8000/media/' + str(obj.image)  # 把对象转成字符串
+    # image = serializers.SerializerMethodField()
+    # def get_image(self, obj):
+    #     print( obj.image)
+    #
+    #     return  'http://127.0.0.1:8000/media/' + str(obj.image)  # 把对象转成字符串

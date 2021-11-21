@@ -11,18 +11,24 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
+from pathlib import Path
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import sys
+# BASE_DIR = Path(__file__).resolve().parent.parent
+# sys.path.insert(0, str(BASE_DIR / "apps"))
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+# print(BASE_DIR)
 # 以后BASE_DIR是luffyapi下的小luffyapi
 # 把luffyapi下的apps路径加入环境变量
 # 以后再注册app,只需要写APP名字即可
 path = os.path.join(BASE_DIR , 'apps')
+# print(path)
+# E:\python\luffy\luffyapi\luffyapi\apps
+
 sys.path.append(path)
 # print(path)
+# print(sys.path)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -46,16 +52,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
+    'django_filters',
     'luffyapi.apps.home',
     # 'home',
-    # 'luffyapi.apps.user'
-    'user',
+    'luffyapi.apps.user',
+    # 'user',
     'order',
-    'corsheaders',
+    'course',
+
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -64,7 +74,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 'luffyapi.apps.user.middleware.CORSMiddleWare',
-    'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'luffyapi.urls'
@@ -157,7 +167,8 @@ AUTH_USER_MODEL = 'user.User'
 
 # MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
+# 127.0.0.1:8000/media/banner/a.png
+MEDIA_URL = '/media/'
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_ALLOW_ALL = True
@@ -244,6 +255,23 @@ LOGGING = {
 # 异常配置
 REST_FRAMEWORK = {
     'EXCEPTION_HANDLER': 'luffyapi.utils.exceptions.custom_exception_handler',
+    'DEFAULT_THROTTLE_RATES': {
+        'sms': '1/m'  # key要跟类中的scope对应
+    }
 }
 
 from .user_settings import *
+
+
+# redis配置
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",  # django中的缓存缓存到redis中
+            "CONNECTION_POOL_KWARGS": {"max_connections": 100}  # 连接池的大小
+            # "PASSWORD": "123",
+        }
+    }
+}

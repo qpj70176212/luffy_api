@@ -1,7 +1,9 @@
 from django.db import models
 
 # Create your models here.
+# from luffyapi.utils.models import BaseModel
 from luffyapi.utils.models import BaseModel
+
 class Banner(BaseModel):
     title = models.CharField(max_length=16, unique=True, verbose_name='名称')
     image = models.ImageField(upload_to='banner', verbose_name='图片')

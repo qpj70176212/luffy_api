@@ -1,9 +1,10 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 # Create your models here.
-from django.contrib.auth.models import AbstractUser
+# from django.contrib.auth.models import AbstractUser
 class User(AbstractUser):
-    mobile = models.CharField(max_length=11, unique=True)
+    mobile = models.CharField(max_length=11, unique=True, null=True)
     # 需要pillow包的支持
     icon = models.ImageField(upload_to='icon', default='icon/default.png')
 
